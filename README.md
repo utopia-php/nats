@@ -1,13 +1,13 @@
 # nats.php
 
 > [!IMPORTANT]
-> This repository is a read-only mirror of the [utopia-php monorepo](https://github.com/utopia-php/monorepo). Development happens in [`packages/nats`](https://github.com/utopia-php/monorepo/tree/main/packages/nats) — please open issues and pull requests there.
+> This repository is a read-only mirror of [`packages/nats`](https://github.com/appwrite/appwrite/tree/main/packages/nats) in [appwrite/appwrite](https://github.com/appwrite/appwrite). Development happens there — please open issues and pull requests against appwrite/appwrite.
 
 A modern PHP client for [NATS](https://nats.io) messaging system with JetStream and Key-Value store support.
 
 ## Requirements
 
-- PHP 8.1+
+- PHP 8.3+
 - `ext-json`
 - `ext-sodium` (optional, for NKey/JWT authentication)
 
@@ -350,13 +350,15 @@ $conn = Connection::connect(new ConnectionOptions(
 
 ```bash
 # Unit tests
-./vendor/bin/phpunit --testsuite unit
+composer test
 
-# Integration tests (requires a running nats-server)
-./vendor/bin/phpunit --testsuite integration
+# E2E tests (against the NATS servers in docker-compose.yml)
+docker compose up -d --wait
+composer test:e2e
+docker compose down -v
 
 # With custom NATS URL
-NATS_URL=nats://host:4222 ./vendor/bin/phpunit --testsuite integration
+NATS_URL=nats://host:4222 composer test:e2e
 ```
 
 ## Batched requests
